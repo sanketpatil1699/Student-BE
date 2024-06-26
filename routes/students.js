@@ -4,11 +4,11 @@ const router = express.Router();
 
 // Create a new student record
 router.post('/', async (req, res) => {
-    const { first_name, last_name, date_of_birth, email } = req.body;
+    const { first_name, last_name, date_of_birth, Maths_Marks,English_Marks } = req.body;
     try {
         const newStudent = await pool.query(
-            'INSERT INTO students (first_name, last_name, date_of_birth, email) VALUES ($1, $2, $3, $4) RETURNING *',
-            [first_name, last_name, date_of_birth, email]
+            'INSERT INTO students (first_name, last_name, date_of_birth, Maths_Marks,English_Marks) VALUES ($1, $2, $3, $4) RETURNING *',
+            [first_name, last_name, date_of_birth, Maths_Marks,English_Marks]
         );
         res.json(newStudent.rows[0]);
     } catch (err) {
@@ -49,11 +49,11 @@ router.get('/:id', async (req, res) => {
 // Update a student's information
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { first_name, last_name, date_of_birth, email } = req.body;
+    const { first_name, last_name, date_of_birth, Maths_Marks,English_Marks  } = req.body;
     try {
         await pool.query(
-            'UPDATE students SET first_name = $1, last_name = $2, date_of_birth = $3, email = $4 WHERE id = $5',
-            [first_name, last_name, date_of_birth, email, id]
+            'UPDATE students SET first_name = $1, last_name = $2, date_of_birth = $3, Maths_Marks = $4, English_Marks = $5,  WHERE id = $6',
+            [first_name, last_name, date_of_birth, Maths_Marks,English_Marks, id]
         );
         res.json({ message: 'Student updated successfully' });
     } catch (err) {
